@@ -3,7 +3,7 @@
 # Author:   wzg
 # email:    1010490079@qq.com
 # Date:     2019/12/14 16:18
-# Description: 
+# Description: 数据库的相关操作
 
 # 创建对象的基类:
 from sqlalchemy import create_engine, Column, String, Text, DATETIME, FLOAT, INT, INTEGER
@@ -49,7 +49,7 @@ def connection_to_mysql():
     连接数据库
     @return:
     """
-    engine = create_engine('mysql+pymysql://wzg:***REMOVED***@localhost:3306/db_data_analysis?charset=utf8')
+    engine = create_engine('mysql+pymysql://***REMOVED***:passwd@localhost:3306/db_data_analysis?charset=utf8')
     Session = sessionmaker(bind=engine)
     db_session = Session()
     # 创建数据表
