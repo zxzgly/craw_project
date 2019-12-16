@@ -36,11 +36,6 @@ class DouBanMovie:
         self.pymysql_engine, self.pymysql_session = connection_to_mysql()
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-            # 'Referer': 'https://movie.douban.com/subject/1292052/',
-            # 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            # 'Accept-Encoding': 'gzip, deflate, br',
-            # 'Accept-Language': 'zh-CN,zh;q=0.9',
-            # 'host':'book.douban.com'
         }
 
     def get_one_page(self):
@@ -198,12 +193,4 @@ if __name__ == '__main__':
     page_size = 25
     douban_movie = DouBanMovie(url, start_page, pages, page_size)
     douban_movie.get_one_page()
-
-    # # 获取数据并保存成 DataFrame
-    # df_data = pd.read_csv(r'C:\Users\wzg\Desktop\data_movie.csv', encoding='utf-8')
-    # # df_data.to_csv(r'C:\Users\wzg\Desktop\data_movie.csv', encoding='utf-8', index=False)
-    # # 导入数据到 mysql 中
-    # print(df_data)
-    # pymysql_engine, pymysql_session = connection_to_mysql()
-    # df_data.to_sql('t_douban_movie_top_250', pymysql_engine, index=False, if_exists='append')
 
