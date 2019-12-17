@@ -11,7 +11,7 @@ from collections import OrderedDict
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from craw_douban_movie.init_db import connection_to_mysql
+from craw_douban.init_db import connection_to_mysql
 
 # 显示所有列
 pd.set_option('display.max_columns', None)
