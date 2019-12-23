@@ -1,3 +1,6 @@
+##### 图片无法访问的小伙伴，可以直接看原文链接
+项目详细讲解 [爬虫实战-手把手教你爬豆瓣电影](https://mp.weixin.qq.com/s?__biz=MzI5MjYwNTU5NQ==&mid=2247483908&idx=1&sn=674e024fc361f30013fe742175fc8bc0&chksm=ec7f99f0db0810e629c765de69575fe757a522a72ab75a790bfb506bdab65a2b3c71c3a11a7c&token=543616888&lang=zh_CN#rd)
+<br>
 ##### 爬取豆瓣电影信息
 ```
 # encoding:utf-8
