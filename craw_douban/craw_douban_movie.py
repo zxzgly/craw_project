@@ -154,8 +154,6 @@ class DouBanMovie:
         movie_info['movie_one_star_ratio'] = soup_div.find_all('div')[8].find(class_='rating_per').string
         movie_info['movie_note'] = ''
 
-        print(movie_info)
-        exit()
         # 保存当前影片信息
         self.data_info.append(movie_info)
 
@@ -168,7 +166,7 @@ class DouBanMovie:
         df_data = pd.DataFrame(self.data_info)
         df_data.to_csv(r'C:\Users\wzg\Desktop\data_movie.csv', encoding='utf-8', index=False)
         # 导入数据到 mysql 中
-        df_data.to_sql('t_douban_movie_top_250', self.pymysql_engine, index=False, if_exists='append')
+        # df_data.to_sql('t_douban_movie_top_250', self.pymysql_engine, index=False, if_exists='append')
 
     def get_mul_tag_info(self, soup_span):
         """
