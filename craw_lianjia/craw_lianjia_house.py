@@ -60,8 +60,8 @@ class LianJiaHouse:
         self.await_min_time = 2
         # 重连次数
         self.retry = 5
-        # 连接数据库
-        self.pymysql_engine, self.pymysql_session = connection_to_mysql()
+        # 爬取时间较长，所以在保存数据的时候进行数据库连接，不在此进行数据库连接
+        self.pymysql_engine, self.pymysql_session = None, None
         # 设置爬虫头部，建议多设置一些，防止被封
         self.headers = {
             'User-Agent': self.get_ua(),
@@ -342,6 +342,9 @@ class LianJiaHouse:
         保存/追加数据到数据库中
         @return:
         """
+        # 连接数据库
+        self.pymysql_engine, self.pymysql_session = connection_to_mysql()
+        # 读取数据并保存到数据库中
         df_data = pd.read_csv(self.save_file_path, encoding='utf-8')
         # 导入数据到 mysql 中
         df_data.to_sql('t_lianjia_rent_info', self.pymysql_engine, index=False, if_exists='append')
