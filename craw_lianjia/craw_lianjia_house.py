@@ -39,11 +39,11 @@ class LianJiaHouse:
         self.rooms_number = ['l0', 'l1', 'l2', 'l3']
         # 房间面积：<=40平米、40-60、60-80、80-100、100-120、>120
         # self.room_size = ['ra0', 'ra1', 'ra2', 'ra3', 'ra4', 'ra5']
-        # 其实页码默认为0
+        # 起始页码默认为0
         self.start_page = 0
         # 当前条件下的总数据页数
         self.pages = 0
-        # 每一页的出租房屋个数
+        # 每一页的出租房屋个数，默认page_szie=30
         self.page_size = page_size
         # 最大页数
         self.max_pages = 100
@@ -141,7 +141,7 @@ class LianJiaHouse:
         @param room_number: 居室数
         @return:
         """
-        # 重新拼接行政区域 + 出租方式访问的 url
+        # 重新拼接行政区域 + 出租方式 + 居室 访问的 url
         self.current_url = self.base_url + area + '/' + rental_method + room_number + '/'
         # 获取当前筛选条件下数据总条数
         soup, count_area_rental_room = self.get_house_count()
