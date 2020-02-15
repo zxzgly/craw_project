@@ -4,6 +4,7 @@
 # email:    1010490079@qq.com
 # Date:     2020/2/13 17:01
 # Description: 爬取的数据预处理 + 画图的数据预处理
+import numpy as np
 from sqlalchemy import create_engine
 
 
@@ -85,7 +86,7 @@ def rename_df(df_data, tag='city'):
 
     # 数据排序
     df_data.sort_values(['累计确诊人数', '新增累积确诊人数'], inplace=True, ascending=False)
-    df_data.reset_index(inplace=True)
+    df_data = df_data.reset_index(drop=True)
 
     return df_data
 
@@ -99,12 +100,15 @@ def compare_data(df_data):
     """
     # 获取数据日期
     date_list = df_data['date'].drop_duplicates().values.tolist()
+    # 去除id列
+    df_data.drop('id', axis=1, inplace=True)
     # 根据日期拆分dataframe
     df_data_1 = df_data[df_data['date'] == date_list[0]]
     df_data_2 = df_data[df_data['date'] == date_list[1]]
-    # 重置 index
-    df_data_1.reset_index(inplace=True)
-    df_data_2.reset_index(inplace=True)
+    # 重置索引列
+    df_data_1 = df_data_1.reset_index(drop=True)
+    df_data_2 = df_data_2.reset_index(drop=True)
+
     if date_list[1] < date_list[0]:
         temp = df_data_1
         df_data_1 = df_data_2
@@ -121,6 +125,11 @@ def compare_data(df_data):
         lambda x: format(x, '.2%'))
     df_data_2['death_ratio'] = (df_data_2['death_nc'] / df_data_1['death']).apply(lambda x: format(x, '.2%'))
     df_data_2['cure_ratio'] = (df_data_2['cure_nc'] / df_data_1['cure']).apply(lambda x: format(x, '.2%'))
+
+    # 对新增城市的数据进行填充
+    df_data_2.fillna(0, inplace=True)
+    df_data_2[['curr_diagnose_nc', 'sum_diagnose_nc', 'death_nc', 'cure_nc']] = \
+        df_data_2[['curr_diagnose_nc', 'sum_diagnose_nc', 'death_nc', 'cure_nc']].astype(int)
 
     return df_data_2
 
