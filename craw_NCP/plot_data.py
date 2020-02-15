@@ -26,9 +26,9 @@ def read_data():
     connect = create_engine('mysql+pymysql://username:password@localhost:3306/dbname?charset=utf8')
 
     # 获取前两天的数据
-    sql_city = 'select * from t_ncp_city_info where date>={0}'.format(data_time_str)
+    sql_city = 'select * from t_ncp_city_info where date>="{0}"'.format(data_time_str)
     df_city_data = pd.read_sql_query(sql_city, connect)
-    sql_province = 'select * from t_ncp_province_info where date>={0}'.format(data_time_str)
+    sql_province = 'select * from t_ncp_province_info where date>="{0}"'.format(data_time_str)
     df_province_data = pd.read_sql_query(sql_province, connect)
 
     return df_city_data, df_province_data
