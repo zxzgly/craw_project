@@ -60,30 +60,37 @@ def rename_df(df_data, tag='city'):
     else:
         name = '省份'
 
-    df_data = df_data[[tag, 'sum_diagnose', 'sum_diagnose_ratio', 'curr_diagnose',
-                       'curr_diagnose_ratio', 'death', 'death_ratio', 'cure', 'cure_ratio']]
+    df_data = df_data[[tag, 'sum_diagnose', 'sum_diagnose_nc', 'sum_diagnose_ratio',
+                       'curr_diagnose', 'curr_diagnose_nc', 'curr_diagnose_ratio',
+                       'death', 'death_nc', 'death_ratio',
+                       'cure', 'cure_nc', 'cure_ratio']]
+
     df_data.rename(
         columns={
             tag: name,
             'sum_diagnose': '累计确诊人数',
+            'sum_diagnose_nc': '新增累积确诊人数',
             'sum_diagnose_ratio': '累计确诊环比增长率',
             'curr_diagnose': '现存确诊人数',
+            'curr_diagnose_nc': '新增现存确诊人数',
             'curr_diagnose_ratio': '现存确诊环比增长率',
             'death': '死亡人数',
+            'death_nc': '新增死亡人数',
             'death_ratio': '死亡环比增长率',
             'cure': '治愈人数',
+            'cure_nc': '新增治愈人数',
             'cure_ratio': '治愈环比增长率'
         }, inplace=True
     )
 
     # 数据排序
-    df_data.sort_values(['累计确诊人数', '累计确诊环比增长率'], inplace=True, ascending=False)
+    df_data.sort_values(['累计确诊人数', '新增累积确诊人数'], inplace=True, ascending=False)
     df_data.reset_index(inplace=True)
 
     return df_data
 
 
-def compare_data(df_data, tag='city'):
+def compare_data(df_data):
     """
     比较最新的两天数据做差
     @param df_data:
@@ -103,21 +110,19 @@ def compare_data(df_data, tag='city'):
         df_data_1 = df_data_2
         df_data_2 = temp
     # 昨天-前天 比较新增数据
-    df_data_result = df_data_2[['curr_diagnose', 'sum_diagnose', 'death', 'cure']] - \
-                     df_data_1[['curr_diagnose', 'sum_diagnose', 'death', 'cure']]
+    df_data_2['curr_diagnose_nc'] = df_data_2['curr_diagnose'] - df_data_1['curr_diagnose']
+    df_data_2['sum_diagnose_nc'] = df_data_2['sum_diagnose'] - df_data_1['sum_diagnose']
+    df_data_2['death_nc'] = df_data_2['death'] - df_data_1['death']
+    df_data_2['cure_nc'] = df_data_2['cure'] - df_data_1['cure']
     # 新增较上一日环比列
-    df_data_result['curr_diagnose_ratio'] = (df_data_result['curr_diagnose']/df_data_1['curr_diagnose']).apply(lambda x: format(x, '.2%'))
-    df_data_result['sum_diagnose_ratio'] = (df_data_result['sum_diagnose']/df_data_1['sum_diagnose']).apply(lambda x: format(x, '.2%'))
-    df_data_result['death_ratio'] = (df_data_result['death']/df_data_1['death']).apply(lambda x: format(x, '.2%'))
-    df_data_result['cure_ratio'] = (df_data_result['cure']/df_data_1['cure']).apply(lambda x: format(x, '.2%'))
+    df_data_2['curr_diagnose_ratio'] = (df_data_2['curr_diagnose_nc'] / df_data_1['curr_diagnose']).apply(
+        lambda x: format(x, '.2%'))
+    df_data_2['sum_diagnose_ratio'] = (df_data_2['sum_diagnose_nc'] / df_data_1['sum_diagnose']).apply(
+        lambda x: format(x, '.2%'))
+    df_data_2['death_ratio'] = (df_data_2['death_nc'] / df_data_1['death']).apply(lambda x: format(x, '.2%'))
+    df_data_2['cure_ratio'] = (df_data_2['cure_nc'] / df_data_1['cure']).apply(lambda x: format(x, '.2%'))
 
-    # 新增属性列
-    if tag == 'city':
-        df_data_result['city'] = df_data_1['city']
-    else:
-        df_data_result['province'] = df_data_1['province']
-
-    return df_data_result
+    return df_data_2
 
 
 if __name__ == '__main__':
