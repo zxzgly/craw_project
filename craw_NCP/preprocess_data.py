@@ -113,6 +113,8 @@ def compare_data(df_data):
         temp = df_data_1
         df_data_1 = df_data_2
         df_data_2 = temp
+
+    df_plot_data = df_data_2.copy()
     # 昨天-前天 比较新增数据
     df_data_2['curr_diagnose_nc'] = df_data_2['curr_diagnose'] - df_data_1['curr_diagnose']
     df_data_2['sum_diagnose_nc'] = df_data_2['sum_diagnose'] - df_data_1['sum_diagnose']
@@ -131,7 +133,7 @@ def compare_data(df_data):
     df_data_2[['curr_diagnose_nc', 'sum_diagnose_nc', 'death_nc', 'cure_nc']] = \
         df_data_2[['curr_diagnose_nc', 'sum_diagnose_nc', 'death_nc', 'cure_nc']].astype(int)
 
-    return df_data_2
+    return df_data_2, df_plot_data
 
 
 if __name__ == '__main__':

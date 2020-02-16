@@ -6,9 +6,10 @@
 # Description: ncp 爬虫的主函数
 import os
 import sys
+import pandas as pd
 
 '''设置主项目目录，在cmd下执行该脚本不会出现导入其他py文件发生错误'''
-sys.path.append(r'D:\code\Python\pycharm-python\d_point\craw_project\craw_NCP')
+sys.path.append(r'D:\code\Python\pycharm-python\d_point\craw_project')
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -17,6 +18,11 @@ from craw_NCP.send_email import send_email
 from datetime import datetime, timedelta
 from craw_NCP.craw_NCP_info import init_selenium, craw_info
 from craw_NCP.preprocess_data import process_data, save_to_mysql, compare_data, rename_df
+
+# 显示所有列
+pd.set_option('display.max_columns', None)
+# 显示所有行
+# pd.set_option('display.max_rows', None)
 
 if __name__ == '__main__':
     path_dir = r'D:\note\data_source\ncp_data'
@@ -47,11 +53,11 @@ if __name__ == '__main__':
     # ①读取数据
     df_city_data, df_province_data = read_data()
     # ②比较数据
-    df_city_result = compare_data(df_city_data, 'city')
-    df_province_result = compare_data(df_province_data, 'province')
+    df_city_result, df_plot_city_data = compare_data(df_city_data)
+    df_province_result, df_plot_province_data = compare_data(df_province_data)
     # ③各省的热力地图
     filepath_save = os.path.join(path_dir, data_time_str + '_visualmap.png')
-    plot_map(df_province_data, '截止' + data_time_str + '中国区累积确认病例分布地图', filepath_save)
+    plot_map(df_plot_province_data, '截止' + data_time_str + '中国区累积确认病例分布地图', filepath_save)
     # ④对列名进行相关更改，方便邮件显示
     df_city_result = rename_df(df_city_result, 'city')
     df_province_result = rename_df(df_province_result, 'province')
@@ -68,3 +74,4 @@ if __name__ == '__main__':
             img_list.append(img_path)
     # 发送邮件
     send_email(data_time_str, img_list, df_city_result, df_province_result)
+    exit()

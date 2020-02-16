@@ -42,7 +42,7 @@ def plot_map(df_data, title, filepath_save):
     @return:
     """
     # 获取数据
-    list_data = df_data.iloc[:, [1, 3]].values.tolist()
+    list_data = df_data.iloc[:, [0, 2]].values.tolist()
     # 绘制地图
     ncp_map = (
         Map(init_opts=opts.InitOpts('1000px', '600px'))
