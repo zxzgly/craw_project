@@ -23,3 +23,4 @@
 ### 数据分析项目
 #### 1. 豆瓣电影TOP250数据分析
 ##### 项目详细讲解 [分析实战-你知道豆瓣电影是怎么评分的吗？](https://mp.weixin.qq.com/s?__biz=MzI5MjYwNTU5NQ==&mid=2247483937&idx=1&sn=ca96636651581d4abe86276fa4285adc&chksm=ec7f99d5db0810c30693522defbd7245947eae07a96f436eb0d0385e950683f4878febd9e9cd&token=1487868079&lang=zh_CN#rd)
+<br>
