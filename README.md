@@ -19,7 +19,7 @@
 #### 3. 爬虫实战—自动化疫情数据获取，并邮件发送
 ##### 项目详细讲解 [写了个自动化脚本，每日更新疫情数据](https://mp.weixin.qq.com/s?__biz=MzI5MjYwNTU5NQ==&mid=2247484161&idx=1&sn=c380e1bacf77a31bc01d0f6e69306635&chksm=ec7f98f5db0811e3c04e7d6044578ea4f7714db76cfc268d03f5d169c8777a4b42519ebc58b4&token=1458385266&lang=zh_CN#rd)
 
-
+<br><br>
 
 ### 数据分析项目
 #### 1. 豆瓣电影TOP250数据分析
