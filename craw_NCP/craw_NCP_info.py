@@ -64,6 +64,7 @@ def craw_info(browser, url):
     # 数据转换成 DataFrame
     df_province_data = pd.DataFrame(list_province_data, columns=['province', 'curr_diagnose', 'sum_diagnose', 'death', 'cure'])
 
+    browser.quit()
     return df_city_data, df_province_data
 
 
@@ -82,10 +83,18 @@ def resolve_info(data, tag='city'):
         data_name = [string for string in data.find('p', class_='subBlock1___j0DGa').strings][0]
     # 现存确诊人数
     data_curr_diagnose = data.find('p', class_='subBlock2___E7-fW').string
-    # 累计确诊人数
-    data_sum_diagnose = data.find('p', class_='subBlock4___ANk6l').string
-    # 死亡人数
-    data_death = data.find('p', class_='subBlock3___3mcDz').string
+
+    if tag == 'city':
+        # 累计确诊人数
+        data_sum_diagnose = data.find('p', class_='subBlock4___ANk6l').string
+        # 死亡人数
+        data_death = data.find('p', class_='subBlock3___3mcDz').string
+    else:
+        # 累计确诊人数
+        data_sum_diagnose = data.find('p', class_='subBlock3___3mcDz').string
+        # 死亡人数
+        data_death = data.find('p', class_='subBlock4___ANk6l').string
+
     # 治愈人数
     data_cure = data.find('p', class_='subBlock5___2EkOU').string
 
