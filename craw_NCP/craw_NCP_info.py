@@ -41,7 +41,8 @@ def craw_info(browser, url):
     content = browser.page_source
     soup = BeautifulSoup(content, 'html.parser')
     # 获取中国城市疫情人数
-    soup_city_class = soup.find('div', class_='areaBox___3jZkr').find_all('div', class_='areaBlock2___27vn7')
+    soup_city_class = soup.find('div', class_='areaBox___Sl7gp themeA___1BO7o').\
+        find_all('div', class_='areaBlock2___2gER7')
     list_city_data = []
     for per_city in soup_city_class:
         # 如果存在城市标签，则认为该数据有效，进行解析
@@ -53,7 +54,8 @@ def craw_info(browser, url):
     df_city_data = pd.DataFrame(list_city_data, columns=['city', 'curr_diagnose', 'sum_diagnose', 'death', 'cure'])
 
     # 获取省份疫情人数
-    soup_province_class = soup.find('div', class_='areaBox___3jZkr').find_all('div', class_='areaBlock1___3V3UU')
+    soup_province_class = soup.find('div', class_='areaBox___Sl7gp themeA___1BO7o').\
+        find_all('div', class_='areaBlock1___3qjL7')
     list_province_data = []
     for per_province in soup_province_class:
         # 如果存在img标签，则认为该数据有效，进行解析。（否则该数据应该是表头，应跳过）
@@ -77,26 +79,26 @@ def resolve_info(data, tag='city'):
     """
     if tag == 'city':
         # 城市
-        data_name = data.find('p', class_='subBlock1___j0DGa').find('span').string
+        data_name = data.find('p', class_='subBlock1___3cWXy').find('span').string
     else:
         # 省份
-        data_name = [string for string in data.find('p', class_='subBlock1___j0DGa').strings][0]
+        data_name = [string for string in data.find('p', class_='subBlock1___3cWXy').strings][0]
     # 现存确诊人数
-    data_curr_diagnose = data.find('p', class_='subBlock2___E7-fW').string
+    data_curr_diagnose = data.find('p', class_='subBlock2___2BONl').string
 
     if tag == 'city':
         # 累计确诊人数
-        data_sum_diagnose = data.find('p', class_='subBlock4___ANk6l').string
+        data_sum_diagnose = data.find('p', class_='subBlock4___3SAto').string
         # 死亡人数
-        data_death = data.find('p', class_='subBlock3___3mcDz').string
+        data_death = data.find('p', class_='subBlock3___3dTLM').string
     else:
         # 累计确诊人数
-        data_sum_diagnose = data.find('p', class_='subBlock3___3mcDz').string
+        data_sum_diagnose = data.find('p', class_='subBlock3___3dTLM').string
         # 死亡人数
-        data_death = data.find('p', class_='subBlock4___ANk6l').string
+        data_death = data.find('p', class_='subBlock4___3SAto').string
 
     # 治愈人数
-    data_cure = data.find('p', class_='subBlock5___2EkOU').string
+    data_cure = data.find('p', class_='subBlock5___33XVW').string
 
     return [data_name, data_curr_diagnose, data_sum_diagnose, data_death, data_cure]
 
