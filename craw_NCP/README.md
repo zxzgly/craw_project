@@ -5,7 +5,11 @@
 - 邮件发送给相应列表
 
 **备注 ：NCP（ Novel coronavirus pneumonia 新型冠状病毒肺炎）**
-<br><br><br>
+<br><br>
+**项目详细讲解原文链接**： [写了个自动化脚本，每日更新疫情数据](https://mp.weixin.qq.com/s?__biz=MzI5MjYwNTU5NQ==&mid=2247484161&idx=1&sn=c380e1bacf77a31bc01d0f6e69306635&chksm=ec7f98f5db0811e3c04e7d6044578ea4f7714db76cfc268d03f5d169c8777a4b42519ebc58b4&token=1458385266&lang=zh_CN#rd)
+
+<br>
+<br>
 
 ### 项目讲解
 
